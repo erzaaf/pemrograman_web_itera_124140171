@@ -22,26 +22,8 @@ Tujuan: kasir dapat menginput barang dengan validasi ketat, melihat total + disk
 4. Atau cara manual: double-klik `index.html` untuk dibuka di browser (Chrome/Edge).
 5. Tidak perlu backend / database, cukup browser modern dengan JavaScript + localStorage aktif.
 
-### B. Hosting GitHub Pages
-1. Buat repository baru di GitHub (misal `MiniPOS-Prak1`), jangan centang Add README agar tidak konflik.
-2. Di terminal, dari dalam folder proyek:
-   ```bash
-   git init
-   git add .
-   git commit -m "Mini POS Prak 1"
-   git branch -M main
-   git remote add origin https://github.com/USERNAME/NAMA-REPO.git
-   git push -u origin main
-   ```
-   (Ganti `USERNAME/NAMA-REPO` dengan milikmu. Kalau folder ini sudah jadi repo, cukup `git add/commit/push`.)
-3. Di GitHub, buka **Settings → Pages**.
-4. Pada **Build and deployment**, pilih **Deploy from a branch**, Branch: `main`, Folder: `/ (root)`, lalu **Save**.
-5. Tunggu ±1 menit, aplikasimu online di:
-   `https://USERNAME.github.io/NAMA-REPO/`
-6. Catat URL tersebut sebagai link pengumpulan.
-
-## Link Hosting GitHub
-`https://USERNAME.github.io/NAMA-REPO/` _(ganti dengan link aslimu setelah deploy)_
+    ### B. Link Hosting GitHub
+    `https://erzaaf.github.io/pemrograman_web_itera_124140171/Erza%20Farandi_124140171_pertemuan1/`
 
 ## Daftar Fitur
 - [x] Validasi Nama Barang (wajib, min 3 karakter) + pesan merah di bawah input
