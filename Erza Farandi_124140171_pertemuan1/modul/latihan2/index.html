@@ -5,23 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Latihan 2 - Data Mahasiswa</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 16px; }
-    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
-    th, td { border: 1px solid #999; padding: 6px; text-align: left; }
-    .row { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
-    input { padding: 6px; }
-    button { padding: 6px 10px; cursor: pointer; }
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; background: #f1f5f9; color: #111827; max-width: 900px; margin: auto; }
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+    th { background: #1e293b; color: #fff; }
+    th, td { border: 1px solid #e2e8f0; padding: 8px; text-align: left; }
+    tr:nth-child(even) td { background: #f8fafc; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; align-items: center; }
+    input { padding: 9px 12px; border: 2px solid #e2e8f0; border-radius: 10px; outline: none; transition: border .2s, box-shadow .2s; }
+    input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,.2); }
+    #info { font-weight: bold; background: #e0e7ff; color: #3730a3; padding: 8px 12px; border-radius: 10px; }
+    .btn { padding: 9px 16px; margin: 2px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; color: #fff; transition: transform .15s, box-shadow .15s, filter .15s; box-shadow: 0 3px 8px rgba(0,0,0,.15); }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 6px 14px rgba(0,0,0,.2); }
+    .btn:active { transform: scale(.96); }
+    .btn-gold { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .btn-green { background: linear-gradient(135deg, #059669, #047857); }
+    .btn-purple { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+    .btn-blue { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+    .btn-gray { background: linear-gradient(135deg, #64748b, #475569); }
+    .btn-edit { background: #f59e0b; padding: 6px 12px; font-size: 12px; }
+    .btn-del { background: #ef4444; padding: 6px 12px; font-size: 12px; }
   </style>
 </head>
 <body>
   <h1>Latihan 2 - Array & CRUD Mahasiswa</h1>
 
   <div class="row">
-    <button id="btn-tertinggi">Nilai Tertinggi</button>
-    <button id="btn-diatas-rata">Di Atas Rata-rata</button>
-    <button id="btn-sort-asc">Sort Nama A-Z</button>
-    <button id="btn-sort-desc">Sort Nama Z-A</button>
-    <button id="btn-reset">Reset</button>
+    <button id="btn-tertinggi" class="btn btn-gold">🏆 Nilai Tertinggi</button>
+    <button id="btn-diatas-rata" class="btn btn-green">📊 Di Atas Rata-rata</button>
+    <button id="btn-sort-asc" class="btn btn-purple">🔼 Sort A-Z</button>
+    <button id="btn-sort-desc" class="btn btn-blue">🔽 Sort Z-A</button>
+    <button id="btn-reset" class="btn btn-gray">↩ Reset</button>
   </div>
   <p id="info"></p>
 
@@ -31,7 +45,7 @@
     <input id="f-nim" placeholder="NIM" />
     <input id="f-jurusan" placeholder="Jurusan" />
     <input id="f-nilai" type="number" placeholder="Nilai" />
-    <button id="btn-simpan">Simpan</button>
+    <button id="btn-simpan" class="btn btn-blue">💾 Simpan</button>
   </div>
 
   <h2>Daftar Mahasiswa</h2>

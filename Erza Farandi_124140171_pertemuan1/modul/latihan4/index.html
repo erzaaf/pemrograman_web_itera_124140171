@@ -5,11 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Latihan 4 - Loop & Fungsi</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 16px; max-width: 700px; margin: auto; }
-    section { border: 1px solid #ccc; border-radius: 8px; padding: 12px; margin-bottom: 14px; }
-    input, button { padding: 6px 10px; margin: 4px; }
-    pre { background: #f4f4f4; padding: 10px; border-radius: 6px; max-height: 250px; overflow: auto; }
-    .error { color: red; font-size: 13px; }
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; background: #f1f5f9; color: #111827; max-width: 700px; margin: auto; }
+    section { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px; margin-bottom: 14px; box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+    input { padding: 9px 12px; margin: 4px; border: 2px solid #e2e8f0; border-radius: 10px; outline: none; transition: border .2s, box-shadow .2s; }
+    input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,.2); }
+    pre { background: #f8fafc; border: 1px solid #e2e8f0; padding: 10px; border-radius: 10px; max-height: 250px; overflow: auto; }
+    .error { color: #ef4444; font-size: 13px; font-weight: bold; }
+    .btn { padding: 9px 16px; margin: 4px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; color: #fff; transition: transform .15s, box-shadow .15s, filter .15s; box-shadow: 0 3px 8px rgba(0,0,0,.15); }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 6px 14px rgba(0,0,0,.2); }
+    .btn:active { transform: scale(.96); }
+    .btn-purple { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+    .btn-blue { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+    .btn-teal { background: linear-gradient(135deg, #0d9488, #0f766e); }
+    .btn-green { background: linear-gradient(135deg, #059669, #047857); }
+    .btn-orange { background: linear-gradient(135deg, #ea580c, #dc2626); }
   </style>
 </head>
 <body>
@@ -18,21 +28,21 @@
   <section>
     <h2>1. Tabel Perkalian 1–10</h2>
     <input id="kali-angka" type="number" value="5" />
-    <button id="kali-btn">Cetak</button>
+    <button id="kali-btn" class="btn btn-purple">✖ Cetak</button>
     <pre id="kali-out"></pre>
   </section>
 
   <section>
     <h2>2. Faktorial</h2>
     <input id="fak-angka" type="number" value="5" min="0" />
-    <button id="fak-btn">Hitung</button>
+    <button id="fak-btn" class="btn btn-blue"> Hitung</button>
     <p id="fak-out"></p>
   </section>
 
   <section>
     <h2>3. Cek Bilangan Prima</h2>
     <input id="prima-angka" type="number" value="7" />
-    <button id="prima-btn">Cek</button>
+    <button id="prima-btn" class="btn btn-teal">✔ Cek Prima</button>
     <p id="prima-out"></p>
   </section>
 
@@ -40,14 +50,14 @@
     <h2>4. Kalkulator BMI</h2>
     <input id="bmi-bb" type="number" placeholder="Berat (kg)" />
     <input id="bmi-tb" type="number" placeholder="Tinggi (cm)" />
-    <button id="bmi-btn">Hitung BMI</button>
+    <button id="bmi-btn" class="btn btn-green">⚖ Hitung BMI</button>
     <p class="error" id="bmi-err"></p>
     <p id="bmi-out"></p>
   </section>
 
   <section>
     <h2>5. FizzBuzz 1–100</h2>
-    <button id="fb-btn">Jalankan FizzBuzz</button>
+    <button id="fb-btn" class="btn btn-orange">▶ Jalankan FizzBuzz</button>
     <pre id="fb-out"></pre>
   </section>
 

@@ -13,10 +13,11 @@ const info = document.getElementById('info');
 
 function render(data = mahasiswa) {
   tbody.innerHTML = '';
-  data.forEach((m, i) => {
+  data.forEach((m) => {
+    const i = mahasiswa.indexOf(m);
     const tr = document.createElement('tr');
     tr.innerHTML = `<td>${i + 1}</td><td>${m.nama}</td><td>${m.nim}</td><td>${m.jurusan}</td><td>${m.nilai}</td>
-      <td><button data-edit="${i}">Edit</button> <button data-hapus="${i}">Hapus</button></td>`;
+      <td><button class="btn btn-edit" data-edit="${i}">Edit</button> <button class="btn btn-del" data-hapus="${i}">Hapus</button></td>`;
     tbody.appendChild(tr);
   });
 }
