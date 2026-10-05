@@ -23,7 +23,7 @@ Tujuan: kasir dapat menginput barang dengan validasi ketat, melihat total + disk
 5. Tidak perlu backend / database, cukup browser modern dengan JavaScript + localStorage aktif.
 
     ### B. Link Hosting GitHub
-    `https://erzaaf.github.io/pemrograman_web_itera_124140171/Erza%20Farandi_124140171_pertemuan1/`
+    https://erzaaf.github.io/pemrograman_web_itera_124140171/Erza%20Farandi_124140171_pertemuan1/
 
 ## Daftar Fitur
 - [x] Validasi Nama Barang (wajib, min 3 karakter) + pesan merah di bawah input
