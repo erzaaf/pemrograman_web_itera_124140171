@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini POS - Kasir Kantin Kampus</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Mini POS — Kasir Kantin Kampus</h1>
+    <p>Praktikum 1: Validasi Form • Kalkulator Otomatis • LocalStorage</p>
+  </header>
+
+  <main class="container">
+    <!-- Form tambah barang -->
+    <section class="card">
+      <h2>1. Input Barang</h2>
+      <form id="form-barang" novalidate>
+        <div class="form-group">
+          <label for="nama">Nama Barang</label>
+          <input type="text" id="nama" placeholder="cth: Buku Tulis" autocomplete="off" />
+          <small class="error" id="err-nama"></small>
+        </div>
+        <div class="form-group">
+          <label for="harga">Harga Satuan (Rp)</label>
+          <input type="number" id="harga" min="0" step="1" placeholder="cth: 5000" />
+          <small class="error" id="err-harga"></small>
+        </div>
+        <div class="form-group">
+          <label for="qty">Jumlah / Qty</label>
+          <input type="number" id="qty" min="1" step="1" placeholder="cth: 2" />
+          <small class="error" id="err-qty"></small>
+        </div>
+        <button type="submit" class="btn primary">+ Tambah ke Keranjang</button>
+      </form>
+    </section>
+
+    <!-- Keranjang -->
+    <section class="card">
+      <h2>2. Keranjang Belanja</h2>
+      <div class="table-wrap">
+        <table id="tabel-keranjang">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Barang</th>
+              <th>Harga Satuan</th>
+              <th>Qty</th>
+              <th>Subtotal</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-keranjang">
+            <!-- diisi via JS -->
+          </tbody>
+        </table>
+        <p id="cart-empty" class="muted">Keranjang masih kosong. Tambahkan barang di form.</p>
+      </div>
+      <div class="row-actions">
+        <button id="btn-reset" class="btn danger">Transaksi Baru / Reset</button>
+      </div>
+    </section>
+
+    <!-- Ringkasan -->
+    <section class="card">
+      <h2>3. Ringkasan & Pembayaran</h2>
+      <div class="summary">
+        <div class="summary-row"><span>Total Belanja</span><strong id="total-belanja">Rp 0</strong></div>
+        <div class="form-group promo">
+          <label for="promo">Kode Promo (opsional, coba: HEMAT10)</label>
+          <div class="promo-row">
+            <input type="text" id="promo" placeholder="HEMAT10" autocomplete="off" />
+            <button id="btn-promo" type="button" class="btn secondary">Pakai</button>
+          </div>
+          <small class="muted" id="promo-info">Diskon 10% otomatis jika total ≥ Rp 50.000 atau kode HEMAT10 valid.</small>
+        </div>
+        <div class="summary-row"><span>Diskon (10%)</span><strong id="diskon">- Rp 0</strong></div>
+        <div class="summary-row total"><span>Total Akhir</span><strong id="total-akhir">Rp 0</strong></div>
+        <div class="form-group">
+          <label for="bayar">Uang Bayar (Rp)</label>
+          <input type="number" id="bayar" min="0" step="1" placeholder="cth: 100000" />
+          <small class="error" id="err-bayar"></small>
+        </div>
+        <div class="summary-row"><span>Kembalian</span><strong id="kembalian">Rp 0</strong></div>
+        <p id="bayar-warning" class="warning hidden">Uang belum mencukupi.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Mini POS Prak 1 — Erza Farandi (124140171) • Data tersimpan di localStorage</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

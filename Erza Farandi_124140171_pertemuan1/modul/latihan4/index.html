@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Latihan 4 - Loop & Fungsi</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 16px; max-width: 700px; margin: auto; }
+    section { border: 1px solid #ccc; border-radius: 8px; padding: 12px; margin-bottom: 14px; }
+    input, button { padding: 6px 10px; margin: 4px; }
+    pre { background: #f4f4f4; padding: 10px; border-radius: 6px; max-height: 250px; overflow: auto; }
+    .error { color: red; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h1>Latihan 4 - Loop & Fungsi</h1>
+
+  <section>
+    <h2>1. Tabel Perkalian 1–10</h2>
+    <input id="kali-angka" type="number" value="5" />
+    <button id="kali-btn">Cetak</button>
+    <pre id="kali-out"></pre>
+  </section>
+
+  <section>
+    <h2>2. Faktorial</h2>
+    <input id="fak-angka" type="number" value="5" min="0" />
+    <button id="fak-btn">Hitung</button>
+    <p id="fak-out"></p>
+  </section>
+
+  <section>
+    <h2>3. Cek Bilangan Prima</h2>
+    <input id="prima-angka" type="number" value="7" />
+    <button id="prima-btn">Cek</button>
+    <p id="prima-out"></p>
+  </section>
+
+  <section>
+    <h2>4. Kalkulator BMI</h2>
+    <input id="bmi-bb" type="number" placeholder="Berat (kg)" />
+    <input id="bmi-tb" type="number" placeholder="Tinggi (cm)" />
+    <button id="bmi-btn">Hitung BMI</button>
+    <p class="error" id="bmi-err"></p>
+    <p id="bmi-out"></p>
+  </section>
+
+  <section>
+    <h2>5. FizzBuzz 1–100</h2>
+    <button id="fb-btn">Jalankan FizzBuzz</button>
+    <pre id="fb-out"></pre>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
