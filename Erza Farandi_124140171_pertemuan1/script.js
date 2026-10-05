@@ -18,6 +18,10 @@ const tbody = document.getElementById('tbody-keranjang');
 const cartEmpty = document.getElementById('cart-empty');
 const elTotal = document.getElementById('total-belanja');
 const elDiskon = document.getElementById('diskon');
+const elDiskonOtomatis = document.getElementById('diskon-otomatis');
+const elDiskonPromo = document.getElementById('diskon-promo');
+const elLabelOtomatis = document.getElementById('label-otomatis');
+const elLabelPromo = document.getElementById('label-promo');
 const elTotalAkhir = document.getElementById('total-akhir');
 const elKembalian = document.getElementById('kembalian');
 const elWarning = document.getElementById('bayar-warning');
@@ -76,17 +80,27 @@ function calcTotals() {
   const total = cart.reduce((sum, item) => sum + item.harga * item.qty, 0);
   const promoCode = inputPromo.value.trim().toUpperCase();
   const promoValid = promoApplied && promoCode === 'HEMAT10';
-  const autoDiskon = total >= 50000;
-  const dapatDiskon = autoDiskon || promoValid;
-  const diskon = dapatDiskon ? Math.round(total * 0.1) : 0;
+  const autoAktif = total >= 50000;
+  // Diskon disusun: otomatis 10% + promo 10%, masing-masing dari total belanja
+  const diskonOtomatis = autoAktif ? Math.round(total * 0.1) : 0;
+  const diskonPromo = promoValid ? Math.round(total * 0.1) : 0;
+  const diskon = diskonOtomatis + diskonPromo;
   const totalAkhir = total - diskon;
 
-  if (promoValid) promoInfo.textContent = 'Kode HEMAT10 valid: diskon 10% aktif.';
+  if (autoAktif && promoValid) promoInfo.textContent = 'Dapat 2 diskon: otomatis 10% (≥ Rp 50.000) + promo HEMAT10 10%.';
+  else if (promoValid) promoInfo.textContent = 'Kode HEMAT10 valid: diskon promo 10% aktif.';
   else if (promoApplied) promoInfo.textContent = 'Kode promo tidak valid. Gunakan HEMAT10.';
-  else if (autoDiskon) promoInfo.textContent = 'Total ≥ Rp 50.000: diskon 10% otomatis aktif.';
-  else promoInfo.textContent = 'Diskon 10% otomatis jika total ≥ Rp 50.000 atau kode HEMAT10 valid.';
+  else if (autoAktif) promoInfo.textContent = 'Total ≥ Rp 50.000: diskon otomatis 10% aktif.';
+  else promoInfo.textContent = 'Diskon otomatis 10% jika total ≥ Rp 50.000, + diskon promo 10% jika kode HEMAT10 valid (bisa susun).';
 
-  return { total, diskon, totalAkhir };
+  elLabelOtomatis.textContent = autoAktif
+    ? 'Diskon Otomatis 10% (belanja ≥ Rp 50.000)'
+    : 'Diskon Otomatis (belanja < Rp 50.000)';
+  elLabelPromo.textContent = promoValid
+    ? 'Diskon Promo 10% (kode HEMAT10 ✔)'
+    : 'Diskon Promo HEMAT10 (10%)';
+
+  return { total, diskonOtomatis, diskonPromo, diskon, totalAkhir };
 }
 
 function calcKembalian(totalAkhir) {
@@ -125,15 +139,17 @@ function renderCart() {
       <td class="num">${formatRupiah(item.harga)}</td>
       <td class="num">${item.qty}</td>
       <td class="num">${formatRupiah(subtotal)}</td>
-      <td><button data-idx="${idx}" class="btn danger btn-hapus">Hapus</button></td>
+      <td><button data-idx="${idx}" class="btn danger btn-hapus">🗑 Hapus</button></td>
     `;
     tbody.appendChild(tr);
   });
 
   cartEmpty.style.display = cart.length === 0 ? 'block' : 'none';
 
-  const { total, diskon, totalAkhir } = calcTotals();
+  const { total, diskonOtomatis, diskonPromo, diskon, totalAkhir } = calcTotals();
   elTotal.textContent = formatRupiah(total);
+  elDiskonOtomatis.textContent = '- ' + formatRupiah(diskonOtomatis);
+  elDiskonPromo.textContent = '- ' + formatRupiah(diskonPromo);
   elDiskon.textContent = '- ' + formatRupiah(diskon);
   elTotalAkhir.textContent = formatRupiah(totalAkhir);
   calcKembalian(totalAkhir);
