@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Dashboard</title>
+  <meta name="description" content="Personal dashboard mahasiswa ITERA: tugas, jadwal kuliah, catatan, cuaca & kutipan harian." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div>
+          <h1>Personal Dashboard</h1>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="clock-card">
+          <span id="clock">--:--:--</span>
+          <small id="dateLine">Memuat tanggal…</small>
+        </div>
+        <button id="themeBtn" class="btn btn-ghost" title="Mode gelap / terang">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Greeting + Quote + Weather -->
+    <section class="hero grid-3">
+      <div class="card hero-greet">
+        <p class="eyebrow" id="greeting">Halo! 👋</p>
+        <div class="stats">
+          <div class="stat"><strong id="statTotal">0</strong><span>Total Tugas</span></div>
+          <div class="stat"><strong id="statDone">0</strong><span>Selesai</span></div>
+          <div class="stat danger"><strong id="statUrgent">0</strong><span>Mendesak ≤3 hari</span></div>
+          <div class="stat"><strong id="statToday">0</strong><span>Kelas Hari Ini</span></div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-head"><span>Progres tugas</span><span id="progressLabel">0%</span></div>
+          <div class="progress"><div id="progressBar"></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>💬 Kutipan Harian</h3>
+          <button id="quoteBtn" class="btn btn-small">Acak 🔄</button>
+        </div>
+        <blockquote id="quoteBox" class="quote">“Memuat kutipan motivasi…”</blockquote>
+        <p id="quoteAuthor" class="muted small">— DummyJSON Quotes</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>🌤️ Cuaca</h3>
+          <button id="weatherBtn" class="btn btn-small">Refresh</button>
+        </div>
+        <div id="weatherBox" class="weather">
+          <p class="muted">Memuat cuaca Lampung Selatan…</p>
+        </div>
+        <p class="muted small">📍 Lampung Selatan (-5.36, 105.31)</p>
+      </div>
+    </section>
+
+    <!-- Tasks -->
+    <section class="card" id="taskSection">
+      <div class="card-head wrap">
+        <h3>✅ Daftar Tugas & Deadline</h3>
+        <div class="toolbar">
+          <input id="searchTask" type="search" placeholder="Cari tugas / matkul…" />
+          <select id="filterTask">
+            <option value="all">Semua</option>
+            <option value="active">Belum selesai</option>
+            <option value="done">Selesai</option>
+            <option value="overdue">Terlambat</option>
+          </select>
+          <select id="sortTask">
+            <option value="deadline">Urut: Deadline</option>
+            <option value="priority">Urut: Prioritas</option>
+            <option value="newest">Urut: Terbaru</option>
+          </select>
+        </div>
+      </div>
+
+      <form id="taskForm" class="form-grid">
+        <input id="taskTitle" type="text" placeholder="Judul tugas * (cth: Laporan Praktikum PAW)" maxlength="80" required />
+        <input id="taskCourse" type="text" placeholder="Mata kuliah * (cth: PAW)" maxlength="40" required />
+        <input id="taskDeadline" type="date" required />
+        <select id="taskPriority">
+          <option value="rendah">Prioritas: Rendah</option>
+          <option value="sedang" selected>Prioritas: Sedang</option>
+          <option value="tinggi">Prioritas: Tinggi 🔥</option>
+        </select>
+        <input id="taskDesc" type="text" placeholder="Catatan singkat (opsional)" maxlength="120" />
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="taskSubmit">+ Tambah Tugas</button>
+          <button type="button" class="btn hidden" id="taskCancel">Batal</button>
+        </div>
+      </form>
+
+      <div id="taskList" class="list"></div>
+    </section>
+
+    <section class="grid-2">
+      <!-- Schedule -->
+      <div class="card">
+        <div class="card-head"><h3>📅 Jadwal Kuliah</h3><span id="todayBadge" class="badge"></span></div>
+        <form id="scheduleForm" class="form-grid one-col">
+          <div class="row-2">
+            <select id="schDay">
+              <option>Senin</option><option>Selasa</option><option>Rabu</option>
+              <option>Kamis</option><option>Jumat</option><option>Sabtu</option>
+            </select>
+            <input id="schCourse" type="text" placeholder="Mata kuliah *" maxlength="40" required />
+          </div>
+          <div class="row-2">
+            <input id="schStart" type="time" required />
+            <input id="schEnd" type="time" required />
+          </div>
+          <div class="row-2">
+            <input id="schRoom" type="text" placeholder="Ruangan (cth: GKU 3.5)" maxlength="30" />
+            <input id="schLecturer" type="text" placeholder="Dosen (opsional)" maxlength="40" />
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="schSubmit">+ Tambah Jadwal</button>
+            <button type="button" class="btn hidden" id="schCancel">Batal</button>
+          </div>
+        </form>
+        <div id="scheduleList" class="list"></div>
+      </div>
+
+      <!-- Notes -->
+      <div class="card">
+        <div class="card-head"><h3>📝 Catatan Cepat</h3></div>
+        <form id="noteForm" class="form-grid one-col">
+          <input id="noteTitle" type="text" placeholder="Judul catatan *" maxlength="60" required />
+          <textarea id="noteBody" rows="3" placeholder="Isi catatan… (cth: rumus, link squad, ide)" maxlength="500" required></textarea>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="noteSubmit">+ Simpan Catatan</button>
+            <button type="button" class="btn hidden" id="noteCancel">Batal</button>
+          </div>
+        </form>
+        <div id="noteList" class="list"></div>
+      </div>
+    </section>
+
+    <footer class="footer muted small">
+      Data tersimpan otomatis di <code>localStorage</code> browser.
+      <button id="resetBtn" class="link-btn">Reset semua data</button>
+    </footer>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
