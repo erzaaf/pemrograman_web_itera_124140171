@@ -1,64 +1,70 @@
-# ErzaBoard — Personal Dashboard Mahasiswa
+# Personal Dashboard Mahasiswa
 
 **Nama:** Erza Farandi | **NIM:** 124140171 | **Praktikum PAW — Pertemuan 2**
 
-Aplikasi personal dashboard untuk kebutuhan spesifik mahasiswa ITERA: mengatur **tugas & deadline**, **jadwal kuliah mingguan**, dan **catatan cepat**, dilengkapi widget **jam real-time**, **cuaca ITERA**, dan **kutipan motivasi harian**.
+## 1. Penjelasan Aplikasi
 
-## Cara Menjalankan
+Aplikasi personal dashboard untuk kebutuhan spesifik mahasiswa: mengatur **tugas & deadline kuliah**, **jadwal kuliah mingguan**, dan **catatan cepat** dalam satu halaman. Idenya sederhana — daripada memakai tiga aplikasi berbeda, semua kebutuhan organisasi harian mahasiswa (tugas apa yang mendesak, kelas apa hari ini, catatan singkat) tampil sekaligus di satu dashboard, dilengkapi widget **jam real-time**, **cuaca lokasi kampus**, dan **kutipan motivasi harian** dari API publik.
 
-1. Buka folder ini di File Explorer / VS Code.
-2. Klik dua kali `index.html` (atau jalankan via Live Server / `npx serve .`).
-3. Tidak perlu build, tidak perlu API key — langsung jalan di browser.
+Semua data pengguna tersimpan di `localStorage` browser, sehingga tetap ada setelah halaman di-refresh tanpa perlu backend.
 
-## Fungsi & Fitur
+## 2. Fitur-Fitur
 
 | Modul | Fungsi |
 |---|---|
-| 👋 Header + Jam | Sapaan otomatis (pagi/siang/sore/malam), jam live tiap detik, tanggal Indonesia, dark/light mode tersimpan |
-| 💬 Kutipan Harian | Fetch acak dari `dummyjson.com/quotes/random`, tombol Acak, fallback offline |
-| 🌤️ Cuaca ITERA | Fetch real-time dari Open-Meteo (`latitude=-5.36, longitude=105.31`), suhu + kode cuaca + angin, tombol Refresh |
-| ✅ Tugas | Tambah, edit, hapus, centang selesai, badge H-/terlambat, prioritas, cari, filter (semua/belum/selesai/terlambat), urut (deadline/prioritas/terbaru), statistik + progress bar |
-| 📅 Jadwal Kuliah | Tambah, edit, hapus (hari, matkul, jam, ruangan, dosen), dikelompokkan per hari, badge "HARI INI", counter kelas hari ini |
-| 📝 Catatan Cepat | Tambah, edit, hapus, pin 📌 ke atas, timestamp otomatis |
-| 💾 Penyimpanan | Semua data (tugas, jadwal, catatan, tema) tersimpan di `localStorage`, tetap ada setelah refresh; tombol Reset semua data |
+| 👋 Sapaan + Jam | Sapaan otomatis (pagi/siang/sore/malam), jam live tiap detik, tanggal bahasa Indonesia, mode gelap/terang yang tersimpan |
+| 💬 Kutipan Harian | Diambil acak dari API DummyJSON, tombol Acak, ada kutipan cadangan saat offline |
+| 🌤️ Cuaca | Suhu, deskripsi cuaca, kecepatan angin, dan penanda siang/malam dari API Open-Meteo (lokasi Lampung Selatan), tombol Refresh |
+| ✅ Tugas & Deadline | Tambah, edit, hapus, centang selesai; badge sisa hari (H-1, H-2) / TERLAMBAT / SELESAI; prioritas rendah–sedang–tinggi; pencarian; filter (semua/belum/selesai/terlambat); pengurutan (deadline/prioritas/terbaru); kartu statistik + progress bar |
+| 📅 Jadwal Kuliah | Tambah, edit, hapus (hari, mata kuliah, jam mulai–selesai, ruangan, dosen); dikelompokkan per hari sesuai urutan Senin–Minggu; badge "HARI INI" dan penghitung kelas hari ini |
+| 📝 Catatan Cepat | Tambah, edit, hapus, sematkan (pin) catatan penting ke atas, timestamp otomatis |
+| 💾 Penyimpanan | Tugas, jadwal, catatan, dan tema tersimpan otomatis di `localStorage`; tombol "Reset semua data" di footer |
 
-## Screenshot
+Catatan: daftar tugas dimulai dalam keadaan **kosong**. Data contoh lama (dari API simulasi) dibersihkan otomatis satu kali saat aplikasi dibuka. Jadwal terisi 2 contoh bawaan pada kunjungan pertama dan bisa dihapus/diubah bebas.
 
-> Ganti file ini dengan screenshot asli setelah aplikasi dibuka di browser.
+## 3. Cara Menjalankan
 
-![Screenshot ErzaBoard](screenshot.png)
-*Jika `screenshot.png` belum ada: buka `index.html`, tekan `Win+Shift+S`, simpan sebagai `screenshot.png` di folder ini.*
+1. Buka folder `Erza Farandi_124140171_pertemuan2` di File Explorer / VS Code.
+2. Klik dua kali `index.html` (atau jalankan lewat Live Server / `npx serve .`).
+3. Tidak perlu build dan tidak perlu API key — langsung jalan di browser modern.
 
-## Daftar Fitur ES6+ (file `app.js`)
+## 4. Screenshot Antarmuka
 
-| Fitur | Lokasi | Keterangan |
+![Screenshot Personal Dashboard](screenshot.png)
+
+> Jika gambar di atas belum tampil, buka `index.html` di browser, ambil tangkapan layar seluruh halaman (misalnya `Win+Shift+S`), lalu simpan sebagai `screenshot.png` di folder ini dengan nama persis tersebut.
+
+## 5. Daftar Fitur ES6+ (file `app.js`)
+
+| Fitur | Lokasi (baris) | Keterangan |
 |---|---|---|
-| `let` & `const` tepat | `app.js:9-17` (`const STORAGE_KEYS/DAY_ORDER/PRIORITY_WEIGHT`), `app.js:280` (`let list`), `app.js:179` (`const [q,a]`), seluruh fungsi pakai `const` untuk nilai tetap & `let` untuk yang di-reassign | Referensi array state tidak diubah, isinya diganti immutable |
-| Arrow functions (≥3, aktual 20+) | `app.js:19` (`$`), `app.js:20-21` (`esc`), `app.js:22` (`uid`), `app.js:137-152` (event listener), `app.js:220,251,270-271,280-281` (map/filter) | Dipakai untuk helper, callback event, dan operasi array |
-| Template literals | `app.js:195-201` (render cuaca), `app.js:300-317` (render tugas), `app.js:360-377` (render jadwal), `app.js:411-423` (render catatan) | Semua rendering dinamis daftar memakai backtick + `${}` |
-| Async/Await + Promises | `app.js` (`loadExternalData` + `Promise.allSettled`, `fetchQuote`, `fetchWeather`) | 2 API publik: DummyJSON, Open-Meteo |
-| Classes | `app.js:45-66` (`class TaskItem` + getter `remaining/isOverdue/badge` + method `toggle`), `app.js:68-74` (`ScheduleItem`), `app.js:76-80` (`NoteItem`), `app.js:84-532` (`class DashboardApp`) | Sesuai panduan arsitektur |
-| Destructuring | `app.js:170` (`{quote, author}`), `app.js:193` (`{current_weather: w}`), `app.js:220` (`{title, completed}` di param arrow), `app.js:281` (`{title, course}`), `app.js:411` (`{id,title,body,pinned,createdAt}`), `app.js:430` (`{action,id}`) | Destructuring objek, array, parameter fungsi, dan rename |
-| Spread operator (immutable) | `app.js:228` (`[...tasks, ...samples]`), `app.js:252` (`{...t, ...}`), `app.js:256` (`[...tasks, item]`), `app.js:291,352,410` (`[...list].sort`), `app.js:333,336,389,392,432,481` | Update state selalu menghasilkan array/objek baru |
-| `localStorage` | `app.js:104-113` (`load`/`save` + `JSON.parse/stringify`), `app.js:159,229,518,524-527` (flag seed, tema, reset) | Keys: `erzaboard_tasks_v1`, `erzaboard_schedules_v1`, `erzaboard_notes_v1`, `erzaboard_theme_v1` |
+| `let` dan `const` tepat | `app.js:9-17` (konstanta `STORAGE_KEYS`, `DAY_ORDER`, `PRIORITY_WEIGHT`); `app.js:240` (`let list` yang di-reassign saat filter); `const` untuk semua nilai tetap, mis. `app.js:112,177,190` | Referensi state tidak diubah sembarangan, yang berubah nilainya memakai `let` |
+| Arrow functions (20+) | `app.js:19-34` (helper `$`, `esc`, `uid`, `fmtDate`, `daysUntil`, `showToast`); `app.js:143-156` (callback event listener); `app.js:218,240-249,292,349,392,457-460` (callback `map`/`filter`/`sort`) | Dipakai untuk helper, callback event, dan operasi array |
+| Template literals | `app.js:170-179` (render kutipan); `app.js:191-198` (render cuaca); `app.js:257,260-277` (render daftar tugas); `app.js:311,315,321-322` (render jadwal); `app.js:367,371` (render catatan); `app.js:466-467` (progress bar) | Seluruh rendering daftar dinamis memakai backtick + `${}` |
+| Fungsi asinkron (`async/await` + `Promise`) | `app.js:160-162` (`loadExternalData` + `Promise.allSettled`); `app.js:165-183` (`fetchQuote`); `app.js:184-206` (`fetchWeather`) | Dua API publik dipanggil paralel; ada penanganan `try/catch` + fallback offline |
+| Classes | `app.js:45-66` (`TaskItem`: getter `remaining`/`isOverdue`/`badge` + method `toggle`); `app.js:68-74` (`ScheduleItem`); `app.js:76-82` (`NoteItem`); `app.js:84-492` (`DashboardApp`: state, storage, fetch, render) | Sesuai panduan arsitektur: `TaskItem` memodelkan data, `DashboardApp` mengelola aplikasi |
+| Destructuring | `app.js:46,69,77` (parameter constructor); `app.js:169` (`{ quote, author }`); `app.js:177` (`[q, a]`); `app.js:189` (`{ current_weather: w }` + rename); `app.js:241` (`{ title, course }`); `app.js:371` (`{ id, title, body, pinned, createdAt }`); `app.js:390` (`{ action, id }`) | Destructuring objek, array, parameter fungsi, dan rename |
+| Spread operator (immutable) | `app.js:219,223` (tambah/ubah tugas); `app.js:251` (sort salinan); `app.js:293,296,312` (jadwal); `app.js:349,352,370` (catatan); `app.js:392,441` (toggle/pin) | Setiap perubahan state menghasilkan array/objek baru (`[...arr]`, `{ ...obj }`) |
+| `localStorage` | `app.js:87-93` (muat + bersih data contoh lama); `app.js:106-119` (`load`/`save` + `JSON.parse`/`JSON.stringify`); `app.js:478,484-486` (tema + reset) | Key: `erzaboard_tasks_v1`, `erzaboard_schedules_v1`, `erzaboard_notes_v1`, `erzaboard_theme_v1` |
 
-## API Publik yang Dipakai
+## 6. API Publik yang Dipakai (gratis, tanpa API key)
 
-1. **Cuaca Real-time (Open-Meteo)** — `https://api.open-meteo.com/v1/forecast?latitude=-5.36&longitude=105.31&current_weather=true` → widget cuaca ITERA (`fetchWeather`, `app.js:187`).
-2. **Kutipan Harian (DummyJSON)** — `https://dummyjson.com/quotes/random` → kutipan motivasi header (`fetchQuote`).
+1. **Cuaca real-time — Open-Meteo.** `https://api.open-meteo.com/v1/forecast?latitude=-5.36&longitude=105.31&current_weather=true` → widget cuaca Lampung Selatan (`fetchWeather`, `app.js:184`).
+2. **Kutipan harian — DummyJSON.** `https://dummyjson.com/quotes/random` → kutipan motivasi acak (`fetchQuote`, `app.js:165`).
 
-## Struktur File
+## 7. Struktur File
 
 ```
 Erza Farandi_124140171_pertemuan2/
-├── index.html   # struktur UI (hero, tugas, jadwal, catatan)
-├── style.css    # tema terang/gelap, kartu, grid responsif
-├── app.js       # seluruh logika (OOP + async + storage)
-└── README.md    # dokumentasi ini
+├── index.html      # struktur UI (sapaan, kutipan, cuaca, tugas, jadwal, catatan)
+├── style.css       # tema terang/gelap, kartu, grid responsif
+├── app.js          # seluruh logika (OOP + async + localStorage)
+├── screenshot.png  # tangkapan layar aplikasi jadi (lihat bagian 4)
+└── README.md       # dokumentasi ini
 ```
 
-## Kerapian Kode
+## 8. Kerapian Kode
 
-- Satu tanggung jawab per method (`handleTaskSubmit`, `renderTasks`, `fetchWeather`, …).
-- Escape HTML (`esc()`) untuk semua input pengguna agar aman dari XSS.
-- Penamaan Indonesia + Inggris konsisten, komentar pembatas per modul.
+- Satu method satu tanggung jawab (`handleTaskSubmit`, `renderTasks`, `fetchWeather`, …) dengan komentar pembatas per modul.
+- Semua input pengguna di-escape lewat `esc()` (`app.js:20`) agar aman dari XSS.
+- Event delegation: satu listener global untuk semua tombol aksi di tiga daftar (`app.js:152`, `handleActionClick` di `app.js:387`).
