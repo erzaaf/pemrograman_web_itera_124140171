@@ -1,0 +1,90 @@
+/* ===== Global style Book of Mediatok — flat & solid ===== */
+:root {
+  --bg: #f1f2f4;        /* abu netral polos */
+  --card: #ffffff;
+  --ink: #17181a;       /* hampir hitam, solid */
+  --muted: #6b7280;
+  --primary: #2563eb;   /* biru solid */
+  --primary-hover: #1d4ed8;
+  --danger: #dc2626;
+  --line: #d8dadd;
+  --radius: 8px;
+  --owned: #16a34a;     /* hijau solid */
+  --reading: #f59e0b;   /* kuning/amber solid */
+  --wishlist: #e11d48;  /* rose solid */
+  --sans: "Inter", system-ui, Arial, sans-serif;
+}
+[data-theme="dark"] {
+  --bg: #16181c;
+  --card: #1f2227;
+  --ink: #f3f4f6;
+  --muted: #9ca3af;
+  --line: #373b42;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+}
+main { max-width: 880px; margin: 0 auto; padding: 26px 16px 56px; }
+h1, h2, h3 { margin: 0 0 10px; letter-spacing: -0.02em; }
+p { margin: 0; }
+.muted { color: var(--muted); font-size: 13px; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 18px;
+}
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 9px 15px;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn:hover { border-color: #9ca3af; }
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.btn-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+.btn-danger { color: var(--danger); border-color: #e5b8b8; }
+.btn-danger:hover { background: #fdf2f2; }
+
+input, select, textarea {
+  font: inherit;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  width: 100%;
+}
+input:focus, textarea:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+/* select: biarkan perilaku bawaan browser saat memilih (tanpa warna custom) */
+select:focus { outline: none; }
+input.invalid { border-color: var(--danger); outline-color: var(--danger); background: #fef5f5; }
+.error-text { color: var(--danger); font-size: 12px; margin: 5px 0 0; font-weight: 600; }
+
+.empty-box {
+  text-align: center;
+  padding: 34px 20px;
+  border: 1px dashed #c3c6cb;
+  border-radius: var(--radius);
+  color: var(--muted);
+}

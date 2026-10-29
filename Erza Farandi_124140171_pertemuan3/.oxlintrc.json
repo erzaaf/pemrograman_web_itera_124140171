@@ -1,0 +1,22 @@
+{
+  "globals": {},
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "es2024": true
+  },
+  "categories": {
+    "correctness": "error",
+    "perf": "warn",
+    "suspicious": "warn"
+  },
+  "rules": {
+    "no-console": "warn",
+    "no-unused-vars": "error",
+    "no-debugger": "error",
+    "no-alert": "warn",
+    "react/jsx-key": "error",
+    "react/jsx-no-duplicate-props": "error"
+  },
+  "ignorePatterns": ["dist", "node_modules", "coverage"]
+}

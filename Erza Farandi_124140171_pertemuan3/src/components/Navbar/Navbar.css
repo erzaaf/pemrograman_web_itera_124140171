@@ -1,0 +1,30 @@
+/* Navbar: banner biru cerah penuh layar, brand kiri menu kanan */
+.navbar {
+  background: #3b82f6;
+  border-bottom: none;
+}
+.navbar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px 24px;
+}
+.brand h1 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 800;
+  color: #fff;
+}
+.links { display: flex; gap: 6px; align-items: center; }
+.links a {
+  color: #dbeafe;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+.links a:hover { color: #fff; background: rgba(255, 255, 255, 0.15); }
+.links a.active { color: #2563eb; background: #fff; }

@@ -1,0 +1,17 @@
+.book-form .row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.col label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.book-form button[type="submit"] { width: 100%; }
+@media (max-width: 560px) {
+  .book-form .row { grid-template-columns: 1fr; }
+}

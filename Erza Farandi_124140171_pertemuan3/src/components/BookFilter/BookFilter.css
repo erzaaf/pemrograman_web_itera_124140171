@@ -1,0 +1,16 @@
+.book-filter {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 12px;
+  margin: 16px 0 14px;
+}
+.book-filter label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+@media (max-width: 560px) {
+  .book-filter { grid-template-columns: 1fr; }
+}
