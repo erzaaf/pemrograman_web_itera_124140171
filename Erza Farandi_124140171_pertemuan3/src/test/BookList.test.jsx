@@ -8,7 +8,12 @@ const books = [
   { id: "2", title: "Laskar Pelangi", author: "Andrea Hirata", status: "milik" },
 ];
 
-const withRouter = (ui) => render(<MemoryRouter>{ui}</MemoryRouter>);
+const withRouter = (ui) =>
+  render(
+    <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      {ui}
+    </MemoryRouter>
+  );
 
 /**
  * Test 4: BookList me-render semua buku beserta statusnya

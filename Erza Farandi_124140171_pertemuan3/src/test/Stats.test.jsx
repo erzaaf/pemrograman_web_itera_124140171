@@ -11,7 +11,7 @@ import { BookProvider } from "../context/BookContext.jsx";
 describe("Halaman Stats", () => {
   it("menampilkan statistik sesuai status buku", () => {
     render(
-      <MemoryRouter>
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <BookProvider>
           <Stats />
         </BookProvider>

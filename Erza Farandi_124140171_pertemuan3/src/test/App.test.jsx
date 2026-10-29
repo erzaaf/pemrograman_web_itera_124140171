@@ -8,7 +8,7 @@ import { BookProvider } from "../context/BookContext.jsx";
 // Bungkus App dengan router bawaan main.jsx (distan ulang untuk test)
 const renderApp = () =>
   render(
-    <MemoryRouter>
+    <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <BookProvider>
         <App />
       </BookProvider>

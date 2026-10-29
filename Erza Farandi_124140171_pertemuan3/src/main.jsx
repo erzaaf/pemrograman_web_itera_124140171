@@ -8,7 +8,7 @@ import "./index.css";
 // Entry point: router + global state (Context API) dibungkus di sini
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <BookProvider>
         <App />
       </BookProvider>
