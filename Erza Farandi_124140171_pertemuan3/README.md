@@ -1,41 +1,68 @@
 # Book of Mediatok — Aplikasi Manajemen Buku Pribadi
 
-**Erza Farandi — 124140171 — Praktikum PAW Pertemuan 3**
+**Tugas Praktikum Pengembangan Aplikasi Web (PAW) — Pertemuan 3**
 
-Aplikasi React (Vite) untuk mencatat koleksi buku pribadi dalam tiga status: **dimiliki**, **sedang dibaca**, dan **ingin dibeli** — lengkap dengan filter, pencarian, statistik, dan penyimpanan persisten.
-
-## 1. Deskripsi Aplikasi
-
-| Halaman | Isi |
+| | |
 |---|---|
-| `/` (Daftar Buku) | Form **Tambah Buku** yang selalu tampil di atas, lalu daftar semua buku dengan pencarian (judul/penulis), filter per status, serta tombol hapus & edit per buku |
-| `/stats` (Statistik) | Jumlah buku per status + progress bar persentase (memakai custom hook `useBookStats`) |
-| `/edit/:id` (Edit Buku) | Form edit yang sudah terisi data buku terpilih, kembali ke daftar setelah simpan |
+| Nama | Erza Farandi |
+| NIM | 124140171 |
+| Mata kuliah | Praktikum Pengembangan Aplikasi Web |
+| Pertemuan | 3 (React.js) |
+| Repo | [github.com/erzaaf/pemrograman_web_itera_124140171](https://github.com/erzaaf/pemrograman_web_itera_124140171) |
 
-Data tersimpan di `localStorage` (key `bookmania_books_v2`) sehingga tidak hilang saat refresh. Kunjungan pertama diisi 4 buku contoh yang bebas dihapus/ubah.
+Aplikasi React (Vite) untuk mencatat koleksi buku pribadi dalam tiga status: **dimiliki**, **sedang dibaca**, dan **ingin dibeli** — lengkap dengan filter, pencarian, statistik, dan penyimpanan persisten di browser.
 
-Navbar bersifat *sticky* (`position: sticky`): tetap terlihat di atas layar walaupun halaman di-scroll.
+## 1. Fitur Aplikasi
 
-## 2. Instalasi & Cara Menjalankan
+| Fitur | Keterangan |
+|---|---|
+| Tambah buku | Form **Tambah Buku** selalu tampil di bagian atas halaman `/` (tanpa tombol toggle) |
+| Daftar buku | Menampilkan seluruh koleksi: judul, penulis, dan status |
+| Edit buku | Halaman `/edit/:id` dengan form yang sudah terisi data buku terpilih |
+| Hapus buku | Tombol hapus per buku langsung memperbarui daftar & statistik |
+| Pencarian | Cari berdasarkan judul atau penulis (case-insensitive) |
+| Filter status | Semua status / dimiliki / sedang dibaca / ingin dibeli |
+| Statistik | Jumlah buku per status + progress bar persentase di halaman `/stats` |
+| Penyimpanan | Semua data disimpan otomatis di `localStorage` (key `bookmania_books_v2`) |
+| Validasi form | Judul & penulis wajib diisi; kolom yang salah diberi border merah + pesan `role="alert"` |
+| Navigasi | React Router multi-halaman + navbar *sticky* yang tetap terlihat saat halaman di-scroll |
+| Responsif | Grid form & daftar menyesuaikan layar kecil |
+
+Kunjungan pertama diisi 4 buku contoh (Lord of the Mysteries, Shadow Slave, Omniscient Reader's Viewpoint, Regressor's Tale of Cultivation) yang bebas dihapus/diubah.
+
+## 2. Teknologi yang Digunakan
+
+- **React 18** — functional components + hooks (tanpa class component)
+- **Vite 5** — dev server & build
+- **React Router DOM 6** — routing multi-halaman (`BrowserRouter`, `Routes`, `Route`, `NavLink`, `Link`, `useNavigate`, `useParams`, `Navigate`)
+- **Context API** — state global koleksi buku
+- **prop-types** — validasi props komponen
+- **Vitest + React Testing Library + jsdom** — unit test
+- **oxlint** — linter
+
+## 3. Instalasi & Cara Menjalankan
 
 ```bash
 # masuk folder project
 cd "Erza Farandi_124140171_pertemuan3"
 
-# pasang dependensi (termasuk react-router-dom & prop-types)
+# pasang dependensi
 npm install
 
 # jalankan server development → http://localhost:5173
 npm run dev
 
-# jalankan seluruh unit test (Vitest + RTL)
+# jalankan seluruh unit test
 npm test
+
+# lint kode
+npm run lint
 
 # build production
 npm run build
 ```
 
-## 3. Screenshot Antarmuka
+## 4. Screenshot Antarmuka
 
 Tangkapan layar aplikasi berjalan tersimpan di folder `screenshots/`:
 
@@ -45,7 +72,7 @@ Tangkapan layar aplikasi berjalan tersimpan di folder `screenshots/`:
 | `screenshots/error-validasi.png` | Feedback error saat kolom wajib kosong |
 | `screenshots/stats.png` | Halaman statistik |
 | `screenshots/navbar-sticky.png` | Navbar tetap terlihat saat halaman di-scroll |
-| `screenshots/test.png` | Hasil `npm test` di terminal |
+| `screenshots/test.png` | **Laporan testing**: hasil `npm test` di terminal |
 
 ### Halaman Daftar Buku (form tambah + daftar)
 
@@ -67,7 +94,7 @@ Tangkapan layar aplikasi berjalan tersimpan di folder `screenshots/`:
 
 ![Test](screenshots/test.png)
 
-## 4. Struktur Project
+## 5. Struktur Project
 
 ```
 Erza Farandi_124140171_pertemuan3/
@@ -75,12 +102,12 @@ Erza Farandi_124140171_pertemuan3/
 │   └── favicon.svg                    # aset statis
 ├── screenshots/                       # tangkapan layar laporan
 ├── src/
-│   ├── components/
-│   │   ├── BookForm/     # reusable: form tambah/edit + validasi wajib isi
-│   │   ├── BookList/     # reusable: menampung hasil filter/kosong
-│   │   ├── BookCard/     # reusable: kartu 1 buku + aksi edit/hapus
-│   │   ├── BookFilter/   # reusable: pencarian + filter status (controlled)
-│   │   └── Navbar/       # reusable: navigasi React Router
+│   ├── components/                    # komponen reusable
+│   │   ├── BookForm/     # form tambah/edit + validasi wajib isi
+│   │   ├── BookList/     # menampung hasil filter / keadaan kosong
+│   │   ├── BookCard/     # kartu 1 buku + aksi edit/hapus
+│   │   ├── BookFilter/   # pencarian + filter status (controlled component)
+│   │   └── Navbar/       # navigasi React Router (sticky)
 │   ├── pages/
 │   │   ├── Home/         # halaman daftar buku
 │   │   ├── Stats/        # halaman statistik
@@ -91,34 +118,37 @@ Erza Farandi_124140171_pertemuan3/
 │   ├── context/
 │   │   └── BookContext.jsx      # Context API: state global + CRUD buku
 │   ├── test/                    # 9 unit test (5 file)
-│   ├── main.jsx
+│   ├── main.jsx                 # entry point + BrowserRouter + BookProvider
 │   ├── App.jsx                  # React Router multi-halaman
-│   └── index.css
+│   └── index.css                # style global (flat & solid)
 ├── .gitignore
-├── .oxlintrc.json               # konfigurasi linter (oxlint, jalankan npm run lint)
+├── .oxlintrc.json               # konfigurasi linter (oxlint)
 ├── index.html
 ├── package.json / package-lock.json
 ├── vite.config.js               # konfigurasi Vite + Vitest
 └── README.md
 ```
 
-## 5. Penjelasan Fitur React yang Digunakan
+## 6. Pemenuhan Ketentuan Tugas
 
-| Persyaratan | Implementasi |
-|---|---|
-| `useState` | `BookForm.jsx` (nilai form & error), `Home.jsx` (filter & pencarian), `useLocalStorage.js` |
-| `useEffect` | `useLocalStorage.js` — menulis ke localStorage setiap state berubah |
-| Context API | `context/BookContext.jsx` — `BookProvider` membungkus seluruh aplikasi (`main.jsx`); komponen apa pun mengakses `books`, `addBook`, `updateBook`, `deleteBook` via hook `useBooks()` |
-| React Router | `main.jsx` (`BrowserRouter`) + `App.jsx`: `Routes/Route`, `NavLink` (aktif/hover di Navbar), `Link` & `useNavigate` (Edit/selesai), `useParams` (ambil `:id`), `Navigate` (fallback `*`) |
-| localStorage | `useLocalStorage.js` — serialized `JSON.stringify/parse`, try/catch untuk privacy mode |
-| Custom hook #1 | `hooks/useLocalStorage.js` — dipakai oleh `BookContext` |
-| Custom hook #2 | `hooks/useBookStats.js` — `useMemo`, dipakai halaman Stats & Home |
-| PropTypes | Seluruh komponen: `Navbar`, `BookFilter`, `BookForm`, `BookList`, `BookCard`, `BookProvider` (`children`), komponen non-React (`useBookStats` berdokumen JSDoc) |
-| Functional components + Hooks | 100% — tidak ada class component |
-| Komponen reusable ≥3 | 5 komponen: `BookForm` dipakai Home & Edit, `BookList`/`BookCard` dipakai Home, `BookFilter` & `Navbar` di 2 halaman |
-| Error handling form | Validasi `validate()` di `BookForm.jsx`: judul & penulis wajib diisi; feedback visual kelas `.invalid` (border merah) + teks `role="alert"`, error hilang saat kolom diisi ulang |
+| Ketentuan | Implementasi | Lokasi |
+|---|---|---|
+| Functional components + Hooks | 100% functional component, tidak ada class component | seluruh `src/` |
+| `useState` | Nilai form & error validasi; filter status & kata kunci pencarian | `BookForm.jsx`, `Home.jsx`, `useLocalStorage.js` |
+| `useEffect` | Menulis state ke `localStorage` setiap berubah | `hooks/useLocalStorage.js` |
+| Context API | `BookProvider` membungkus aplikasi; komponen mengakses `books`, `addBook`, `updateBook`, `deleteBook` lewat `useBooks()` | `context/BookContext.jsx`, `main.jsx` |
+| Custom hook #1 | `useLocalStorage` — state persisten (serialisasi JSON + try/catch) | `hooks/useLocalStorage.js` |
+| Custom hook #2 | `useBookStats` — statistik jumlah & persentase per status (`useMemo`) | `hooks/useBookStats.js` |
+| React Router | 3 halaman + fallback: `/`, `/stats`, `/edit/:id`, `*` → `/` | `App.jsx`, `main.jsx` |
+| Komponen reusable (≥3) | 5 komponen: `BookForm` (dipakai Home & Edit), `BookList`, `BookCard`, `BookFilter`, `Navbar` | `src/components/` |
+| PropTypes | Semua komponen punya `propTypes` (termasuk `children` di `BookProvider`) | seluruh komponen |
+| Error handling form | `validate()`: judul & penulis wajib diisi; kelas `.invalid` + teks `role="alert"`; error hilang saat diperbaiki | `BookForm.jsx` |
+| Penyimpanan | `localStorage` key `bookmania_books_v2` | `hooks/useLocalStorage.js` |
+| Unit test | 9 test di 5 file, semuanya lolos | `src/test/` |
+| Laporan testing | Screenshot terminal hasil `npm test` | `screenshots/test.png` |
+| Dokumentasi | README ini + komentar JSDoc/inline di kode | `README.md`, `src/` |
 
-## 6. Testing & Laporan
+## 7. Testing & Laporan
 
 9 unit test dalam 5 file (`src/test/`), dijalankan dengan **Vitest + React Testing Library + jsdom**:
 
@@ -130,22 +160,26 @@ Erza Farandi_124140171_pertemuan3/
 | `Stats.test.jsx` | (7) angka statistik cocok dengan status buku |
 | `App.test.jsx` | (8) halaman utama me-render daftar + filter; (9) navigasi ke `/stats` via Navbar |
 
-Hasil eksekusi `npm test` saat penulisan README:
+Hasil eksekusi `npm test`:
 
 ```
- ✓ src/test/BookList.test.jsx  (2 tests)
- ✓ src/test/Stats.test.jsx     (1 test)
- ✓ src/test/BookFilter.test.jsx(1 test)
- ✓ src/test/App.test.jsx       (2 tests)
- ✓ src/test/BookForm.test.jsx  (3 tests)
+ ✓ src/test/BookList.test.jsx    (2 tests)    72ms
+ ✓ src/test/Stats.test.jsx       (1 test)     76ms
+ ✓ src/test/BookFilter.test.jsx  (1 test)    266ms
+ ✓ src/test/App.test.jsx         (2 tests)   274ms
+ ✓ src/test/BookForm.test.jsx    (3 tests)   972ms
 
  Test Files  5 passed (5)
       Tests  9 passed (9)
-   Duration  3.77s
+   Start at  20:04:46
+   Duration  4.10s (transform 378ms, setup 1.57s, collect 2.48s, tests 1.66s)
 ```
 
-> Laporan testing wajib berupa screenshot terminal: jalankan `npm test`, screenshot hasilnya, simpan sebagai `screenshots/test.png` (lihat bagian 3).
+Laporan testing berupa screenshot terminal ada di [`screenshots/test.png`](screenshots/test.png) (bagian 4).
 
-## 7. Komentar Kode
+## 8. Kerapian Kode
 
-Bagian penting sudah diberi komentar JSDoc/inline: kontrak tiap hook, alur validasi form, kenapa `useMemo` dipakai untuk hasil filter, dan kelima route di `App.jsx`.
+- Satu komponen satu tanggung jawab; style tiap komponen dipisah di file CSS-nya sendiri.
+- Komentar JSDoc/inline pada bagian penting: kontrak tiap custom hook, alur validasi form, alasan `useMemo` pada hasil filter, dan daftar route di `App.jsx`.
+- Linter `oxlint` dijalankan lewat `npm run lint` — 0 error.
+- `node_modules/` dan `dist/` tidak di-commit (lihat `.gitignore`).
