@@ -21,7 +21,7 @@ export default function BookFilter({ filterStatus, onFilterChange, search, onSea
         <input
           id="search-input"
           type="text"
-          placeholder="Judul atau penulis… (contoh: laskar)"
+          placeholder="Judul atau penulis… (contoh: shadow slave)"
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
         />
