@@ -1,8 +1,10 @@
+# Aplikasi Manajemen Buku — Book of Mediatok
+
 Nama: Erza Farandi NIM: 124140171 Praktikum Pengembangan Aplikasi Web — Pertemuan 3 (React)
 
-## Tentang aplikasi
+## Deskripsi aplikasi
 
-Aplikasi untuk mencatat buku yang dimiliki, sedang dibaca, atau ingin dibeli. Dibuat pakai React (Vite), dengan React Router untuk halaman daftar, statistik, dan edit.
+Tugas praktikum Pertemuan 3: membuat aplikasi manajemen buku dengan React. Aplikasi ini bernama **Book of Mediatok**, dipakai untuk mencatat buku yang dimiliki, sedang dibaca, atau ingin dibeli. Dibuat pakai React (Vite), dengan React Router untuk halaman daftar, statistik, dan edit.
 
 Fitur:
 - Tambah, edit, dan hapus buku (judul, penulis, status)
