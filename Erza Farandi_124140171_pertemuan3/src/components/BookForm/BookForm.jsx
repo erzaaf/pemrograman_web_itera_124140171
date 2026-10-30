@@ -54,7 +54,7 @@ export default function BookForm({ initialBook, submitLabel = "Tambah Buku", onS
     <form className="book-form" onSubmit={handleSubmit} noValidate>
       <div className="row">
         <div className="col">
-          <label htmlFor="bf-title">Judul *</label>
+          <label htmlFor="bf-title">Judul</label>
           <input
             id="bf-title"
             name="title"
@@ -67,7 +67,7 @@ export default function BookForm({ initialBook, submitLabel = "Tambah Buku", onS
           {errors.title && <p className="error-text" role="alert">{errors.title}</p>}
         </div>
         <div className="col">
-          <label htmlFor="bf-author">Penulis *</label>
+          <label htmlFor="bf-author">Penulis</label>
           <input
             id="bf-author"
             name="author"
@@ -82,7 +82,7 @@ export default function BookForm({ initialBook, submitLabel = "Tambah Buku", onS
       </div>
       <div className="row">
         <div className="col">
-          <label htmlFor="bf-status">Status *</label>
+          <label htmlFor="bf-status">Status</label>
           <select id="bf-status" name="status" value={form.status} onChange={handleChange}>
             {STATUSES.map((s) => (
               <option key={s.value} value={s.value}>{s.label}</option>

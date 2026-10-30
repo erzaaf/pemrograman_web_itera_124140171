@@ -11,7 +11,16 @@
   color: var(--muted);
   margin-bottom: 5px;
 }
-.book-form button[type="submit"] { width: 100%; }
+.book-form button[type="submit"] {
+  width: 100%;
+  /* warna sama dengan navbar */
+  background: #3b82f6;
+  border-color: #3b82f6;
+}
+.book-form button[type="submit"]:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
 @media (max-width: 560px) {
   .book-form .row { grid-template-columns: 1fr; }
 }

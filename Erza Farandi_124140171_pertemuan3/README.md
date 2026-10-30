@@ -8,11 +8,13 @@ Aplikasi React (Vite) untuk mencatat koleksi buku pribadi dalam tiga status: **d
 
 | Halaman | Isi |
 |---|---|
-| `/` (Daftar Buku) | Daftar semua buku, pencarian (judul/penulis), filter per status, tombol tambah → form input, tombol hapus & edit per buku |
+| `/` (Daftar Buku) | Form **Tambah Buku** yang selalu tampil di atas, lalu daftar semua buku dengan pencarian (judul/penulis), filter per status, serta tombol hapus & edit per buku |
 | `/stats` (Statistik) | Jumlah buku per status + progress bar persentase (memakai custom hook `useBookStats`) |
 | `/edit/:id` (Edit Buku) | Form edit yang sudah terisi data buku terpilih, kembali ke daftar setelah simpan |
 
-Data tersimpan di `localStorage` (key `bookmania_books_v1`) sehingga tidak hilang saat refresh. Kunjungan pertama diisi 3 buku contoh yang bebas dihapus/ubah.
+Data tersimpan di `localStorage` (key `bookmania_books_v2`) sehingga tidak hilang saat refresh. Kunjungan pertama diisi 4 buku contoh yang bebas dihapus/ubah.
+
+Navbar bersifat *sticky* (`position: sticky`): tetap terlihat di atas layar walaupun halaman di-scroll.
 
 ## 2. Instalasi & Cara Menjalankan
 
@@ -39,20 +41,31 @@ Tangkapan layar aplikasi berjalan tersimpan di folder `screenshots/`:
 
 | File | Isi |
 |---|---|
-| `screenshots/home.png` | Daftar buku (filter, pencarian) |
-| `screenshots/form-tambah.png` | Form tambah buku |
+| `screenshots/home.png` | Halaman daftar buku: form tambah di atas + daftar, filter, pencarian |
 | `screenshots/error-validasi.png` | Feedback error saat kolom wajib kosong |
 | `screenshots/stats.png` | Halaman statistik |
+| `screenshots/navbar-sticky.png` | Navbar tetap terlihat saat halaman di-scroll |
 | `screenshots/test.png` | Hasil `npm test` di terminal |
 
-Tautkan seperti ini:
+### Halaman Daftar Buku (form tambah + daftar)
 
-```md
 ![Home](screenshots/home.png)
-![Error](screenshots/error-validasi.png)
+
+### Error Validasi Form
+
+![Error validasi](screenshots/error-validasi.png)
+
+### Halaman Statistik
+
 ![Stats](screenshots/stats.png)
+
+### Navbar Saat Scroll
+
+![Navbar sticky](screenshots/navbar-sticky.png)
+
+### Laporan Testing (`npm test`)
+
 ![Test](screenshots/test.png)
-```
 
 ## 4. Struktur Project
 
@@ -93,7 +106,7 @@ Erza Farandi_124140171_pertemuan3/
 
 | Persyaratan | Implementasi |
 |---|---|
-| `useState` | `BookForm.jsx` (nilai form & error), `Home.jsx` (filter, search, visibilitas form), `useLocalStorage.js` |
+| `useState` | `BookForm.jsx` (nilai form & error), `Home.jsx` (filter & pencarian), `useLocalStorage.js` |
 | `useEffect` | `useLocalStorage.js` — menulis ke localStorage setiap state berubah |
 | Context API | `context/BookContext.jsx` — `BookProvider` membungkus seluruh aplikasi (`main.jsx`); komponen apa pun mengakses `books`, `addBook`, `updateBook`, `deleteBook` via hook `useBooks()` |
 | React Router | `main.jsx` (`BrowserRouter`) + `App.jsx`: `Routes/Route`, `NavLink` (aktif/hover di Navbar), `Link` & `useNavigate` (Edit/selesai), `useParams` (ambil `:id`), `Navigate` (fallback `*`) |
@@ -103,7 +116,7 @@ Erza Farandi_124140171_pertemuan3/
 | PropTypes | Seluruh komponen: `Navbar`, `BookFilter`, `BookForm`, `BookList`, `BookCard`, `BookProvider` (`children`), komponen non-React (`useBookStats` berdokumen JSDoc) |
 | Functional components + Hooks | 100% — tidak ada class component |
 | Komponen reusable ≥3 | 5 komponen: `BookForm` dipakai Home & Edit, `BookList`/`BookCard` dipakai Home, `BookFilter` & `Navbar` di 2 halaman |
-| Error handling form | Validasi `validate()` di `BookForm.jsx`: judul & penulis wajib, tahun 1000–2100; feedback visual kelas `.invalid` (border merah) + teks `role="alert"`, error hilang saat kolom diisi ulang |
+| Error handling form | Validasi `validate()` di `BookForm.jsx`: judul & penulis wajib diisi; feedback visual kelas `.invalid` (border merah) + teks `role="alert"`, error hilang saat kolom diisi ulang |
 
 ## 6. Testing & Laporan
 
@@ -131,7 +144,7 @@ Hasil eksekusi `npm test` saat penulisan README:
    Duration  3.77s
 ```
 
-> Laporan testing wajib berupa screenshot terminal: jalankan `npm test`, screenshot hasilnya, simpan sebagai `screenshot-test.png` (lihat bagian 3).
+> Laporan testing wajib berupa screenshot terminal: jalankan `npm test`, screenshot hasilnya, simpan sebagai `screenshots/test.png` (lihat bagian 3).
 
 ## 7. Komentar Kode
 
