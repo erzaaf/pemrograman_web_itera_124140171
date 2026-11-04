@@ -8,7 +8,7 @@ Tugas praktikum Pertemuan 4 berisi tiga program Python:
 
 - `tugas1_bmi.py` — menghitung BMI dari berat (kg) dan tinggi (m) yang diminta dari pengguna, lalu menentukan kategori berat badannya: kurang, normal, berlebih, atau obesitas.
 - `tugas2_nilai_mahasiswa.py` — memproses data 7 mahasiswa: menghitung nilai akhir (30% UTS + 40% UAS + 30% tugas), menentukan grade A–E, menampilkannya dalam tabel yang rapi, dan mencari nilai tertinggi & terendah.
-- `math_operations.py` + `main.py` — kumpulan fungsi matematika buatan sendiri: konstanta `PI`, luas & keliling persegi, persegi panjang, lingkaran, serta konversi Celsius→Fahrenheit dan Celsius→Kelvin; `main.py` memanggil seluruh fungsinya dengan 2 cara impor berbeda.
+- `math_operations.py` + `main.py` — fungsi untuk menghitung luas & keliling persegi, persegi panjang, dan lingkaran (dengan konstanta `PI`), serta mengonversi suhu Celsius→Fahrenheit dan Celsius→Kelvin; `main.py` memanggil seluruh fungsinya dengan 2 cara impor berbeda.
 
 ## Cara menjalankan
 
