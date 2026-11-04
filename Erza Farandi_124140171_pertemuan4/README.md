@@ -6,9 +6,9 @@ Nama: Erza Farandi NIM: 124140171 Praktikum Pengembangan Aplikasi Web — Pertem
 
 Tugas praktikum Pertemuan 4 berisi tiga program Python:
 
-- `tugas1_bmi.py` — menghitung BMI dari berat (kg) dan tinggi (m) lewat `input()`, lalu menentukan kategorinya (kurang / normal / berlebih / obesitas) dengan `if-elif-else`.
-- `tugas2_nilai_mahasiswa.py` — memproses 7 data mahasiswa (list of dictionary): menghitung nilai akhir (30% UTS + 40% UAS + 30% tugas), grade A–E, tabel rapi, dan mencari nilai tertinggi & terendah.
-- `math_operations.py` + `main.py` — modul matematika buatan sendiri berisi konstanta `PI`, luas & keliling persegi, persegi panjang, lingkaran, serta konversi Celsius→Fahrenheit dan Celsius→Kelvin; `main.py` memanggil seluruh fungsinya dengan 2 cara impor berbeda.
+- `tugas1_bmi.py` — menghitung BMI dari berat (kg) dan tinggi (m) yang diminta dari pengguna, lalu menentukan kategori berat badannya: kurang, normal, berlebih, atau obesitas.
+- `tugas2_nilai_mahasiswa.py` — memproses data 7 mahasiswa: menghitung nilai akhir (30% UTS + 40% UAS + 30% tugas), menentukan grade A–E, menampilkannya dalam tabel yang rapi, dan mencari nilai tertinggi & terendah.
+- `math_operations.py` + `main.py` — kumpulan fungsi matematika buatan sendiri: konstanta `PI`, luas & keliling persegi, persegi panjang, lingkaran, serta konversi Celsius→Fahrenheit dan Celsius→Kelvin; `main.py` memanggil seluruh fungsinya dengan 2 cara impor berbeda.
 
 ## Cara menjalankan
 
