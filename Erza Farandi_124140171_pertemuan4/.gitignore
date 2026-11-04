@@ -1,0 +1,11 @@
+# berkas hasil kompilasi Python
+__pycache__/
+*.py[cod]
+
+# lingkungan virtual
+.venv/
+venv/
+
+# file editor
+.vscode/
+.idea/
