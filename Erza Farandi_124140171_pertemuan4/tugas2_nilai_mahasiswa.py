@@ -12,39 +12,53 @@ Alur kerja:
 
 DATA_MAHASISWA = [
     {
-        "nama": "Andi Pratama",
-        "nim": "124140001",
-        "nilai_uts": 85,
-        "nilai_uas": 90,
-        "nilai_tugas": 88,
+        "nama": "Erza Farandi",
+        "nim": "124140171",
+        "nilai_uts": 90,
+        "nilai_uas": 88,
+        "nilai_tugas": 85,
     },
     {
-        "nama": "Bunga Lestari",
-        "nim": "124140002",
-        "nilai_uts": 75,
-        "nilai_uas": 70,
+        "nama": "M. Irfan Ramadhan",
+        "nim": "124140159",
+        "nilai_uts": 78,
+        "nilai_uas": 74,
         "nilai_tugas": 80,
     },
     {
-        "nama": "Citra Ayu",
-        "nim": "124140003",
+        "nama": "Jeremi Pison Efrat",
+        "nim": "124140195",
+        "nilai_uts": 85,
+        "nilai_uas": 91,
+        "nilai_tugas": 78,
+    },
+    {
+        "nama": "Hanung Akbar Pramusintho",
+        "nim": "124140207",
         "nilai_uts": 65,
-        "nilai_uas": 60,
-        "nilai_tugas": 70,
+        "nilai_uas": 70,
+        "nilai_tugas": 72,
     },
     {
-        "nama": "Dedi Kurniawan",
-        "nim": "124140004",
-        "nilai_uts": 55,
-        "nilai_uas": 50,
-        "nilai_tugas": 60,
+        "nama": "M. Arfa Raditya",
+        "nim": "124140016",
+        "nilai_uts": 72,
+        "nilai_uas": 68,
+        "nilai_tugas": 75,
     },
     {
-        "nama": "Eka Saputra",
-        "nim": "124140005",
-        "nilai_uts": 40,
-        "nilai_uas": 35,
-        "nilai_tugas": 45,
+        "nama": "Dimas Alhamdy",
+        "nim": "124140165",
+        "nilai_uts": 58,
+        "nilai_uas": 62,
+        "nilai_tugas": 55,
+    },
+    {
+        "nama": "Rajendra Rifandhy",
+        "nim": "124140099",
+        "nilai_uts": 45,
+        "nilai_uas": 40,
+        "nilai_tugas": 50,
     },
 ]
 
@@ -97,13 +111,13 @@ def tampilkan_tabel(data):
         mahasiswa["nilai_akhir"] = hitung_nilai_akhir(mahasiswa)
         mahasiswa["grade"] = tentukan_grade(mahasiswa["nilai_akhir"])
 
-    print("=" * 55)
-    print(f"{'Nama':<16}{'NIM':<12}{'Nilai Akhir':<14}{'Grade':<7}")
-    print("-" * 55)
+    print("=" * 62)
+    print(f"{'Nama':<26}{'NIM':<12}{'Nilai Akhir':<14}{'Grade':<7}")
+    print("-" * 62)
     for mahasiswa in data:
-        print(f"{mahasiswa['nama']:<16}{mahasiswa['nim']:<12}"
+        print(f"{mahasiswa['nama']:<26}{mahasiswa['nim']:<12}"
               f"{mahasiswa['nilai_akhir']:<14.2f}{mahasiswa['grade']:<7}")
-    print("=" * 55)
+    print("=" * 62)
 
 
 def cari_ekstrem(data):
