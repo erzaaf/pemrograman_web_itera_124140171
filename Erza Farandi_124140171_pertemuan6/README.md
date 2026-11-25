@@ -99,10 +99,6 @@ mengirim `sks` bernilai 0.
 
 ## Screenshot
 
-### Migrasi Alembic dan seeding data awal
-
-![Migrasi dan seeding](screenshots/01_migrasi_dan_seeding.png)
-
 ### Matakuliah — GET semua & GET detail
 
 Daftar seluruh mata kuliah, detail berdasarkan id, dan respons `404` saat
