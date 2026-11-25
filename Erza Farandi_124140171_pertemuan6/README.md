@@ -1,60 +1,53 @@
-# RESTful API Manajemen Matakuliah — Praktikum PAW Pertemuan 6
+# RESTful API Manajemen Matakuliah — Pyramid
 
-- **Nama Lengkap:** Erza Farandi
-- **NIM:** 124140171
-- **Kelas Praktikum:** RB
+**Erza Farandi** · NIM **124140171** · Kelas Praktikum **RB**
 
-## Deskripsi aplikasi
+Aplikasi web Pyramid untuk mengelola data mahasiswa dan mata kuliah.
+Setiap endpoint mengembalikan JSON. Data disimpan melalui SQLAlchemy ORM,
+tabel dibuat lewat migrasi Alembic, dan URL didaftarkan dengan URL dispatch
+beserta predikat `request_method`.
 
-Aplikasi web **Pyramid** yang menyediakan RESTful API untuk mengelola data
-**mahasiswa** dan **matakuliah**. Setiap endpoint mengembalikan JSON dan
-menerapkan status code yang sesuai (`200`, `400`, `404`).
+Fitur:
 
-Aplikasi dibangun dengan konsep yang dipelajari pada praktikum:
+- CRUD mahasiswa (modul praktikum) dan CRUD mata kuliah (tugas).
+- Tabel dibuat lewat migrasi Alembic, data awal diisi lewat script seeding.
+- Validasi data mata kuliah: semua field wajib diisi, `sks` dan `semester`
+  harus bilangan bulat lebih dari 0, `kode_mk` tidak boleh sama.
+- Status code sesuai hasil: `200` berhasil, `400` data tidak valid,
+  `404` data tidak ditemukan.
 
-- **Model data ORM** (SQLAlchemy) untuk tabel `mahasiswa` dan `matakuliah`,
-- **Migrasi Alembic** untuk membuat dan mengubah struktur tabel,
-- **URL dispatch** pada `routes.py` dengan predikat `request_method`,
-- **View controller CRUD** pada folder `views/`.
+Endpoint:
 
-`development.ini` memakai database **SQLite** lokal agar mudah dijalankan,
-sedangkan `production.ini` sudah disiapkan untuk **PostgreSQL**.
+| Method | URL | Keterangan |
+|---|---|---|
+| GET | `/api/mahasiswa` | Semua mahasiswa |
+| GET | `/api/mahasiswa/{id}` | Detail mahasiswa |
+| POST | `/api/mahasiswa` | Tambah mahasiswa |
+| PUT | `/api/mahasiswa/{id}` | Ubah mahasiswa |
+| DELETE | `/api/mahasiswa/{id}` | Hapus mahasiswa |
+| GET | `/api/matakuliah` | Semua mata kuliah |
+| GET | `/api/matakuliah/{id}` | Detail mata kuliah |
+| POST | `/api/matakuliah` | Tambah mata kuliah |
+| PUT | `/api/matakuliah/{id}` | Ubah mata kuliah |
+| DELETE | `/api/matakuliah/{id}` | Hapus mata kuliah |
 
-## Struktur direktori
+## Cara menjalankan
 
-```
-Erza Farandi_124140171_pertemuan6/
-├── development.ini
-├── production.ini
-├── setup.py
-├── alembic.ini
-├── README.md
-├── .gitignore
-├── screenshots/
-└── pyramid_mahasiswa/
-    ├── __init__.py
-    ├── routes.py
-    ├── alembic/
-    │   ├── env.py
-    │   └── versions/
-    │       ├── 20261112_create_mahasiswa_table.py
-    │       └── 20261112_create_matakuliah_table.py
-    ├── models/
-    │   ├── __init__.py
-    │   ├── meta.py
-    │   ├── mahasiswa.py
-    │   └── matakuliah.py
-    ├── scripts/
-    │   ├── __init__.py
-    │   └── initialize_db.py
-    └── views/
-        ├── __init__.py
-        ├── default.py
-        ├── mahasiswa.py
-        └── matakuliah.py
+1. Siapkan database. Secara bawaan `development.ini` memakai SQLite, jadi
+   tidak ada yang perlu disiapkan. Bila ingin memakai PostgreSQL (seperti
+   pada `production.ini`), buat database dan user lewat
+   `psql -U postgres -h localhost`:
+
+```sql
+CREATE DATABASE pyramid_mahasiswa;
+CREATE USER pyramid_user WITH ENCRYPTED PASSWORD 'pyramid_pass';
+GRANT ALL PRIVILEGES ON DATABASE pyramid_mahasiswa TO pyramid_user;
+\c pyramid_mahasiswa
+GRANT ALL ON SCHEMA public TO pyramid_user;
 ```
 
-## Instalasi
+2. Buka folder ini di VS Code, lalu di terminal buat virtual environment
+   dan install proyek:
 
 ```bash
 python -m venv venv
@@ -62,127 +55,77 @@ venv\Scripts\activate
 pip install -e .
 ```
 
-Pada Linux/macOS, aktifkan virtual environment dengan
-`source venv/bin/activate`.
-
-## Migrasi database
-
-Berkas `pyramid_mahasiswa/alembic/env.py` membaca `sqlalchemy.url` dari
-`development.ini`, jadi cukup jalankan:
+3. Jalankan migrasi dan isi data awal:
 
 ```bash
 alembic upgrade head
-```
-
-Perintah tersebut menjalankan dua revisi:
-
-1. `20261112_create_mahasiswa_table.py`
-2. `20261112_create_matakuliah_table.py`
-
-## Mengisi data awal (seeding)
-
-```bash
-initialize_db development.ini
-```
-
-Alternatif jika entry point belum terpasang:
-
-```bash
 python -m pyramid_mahasiswa.scripts.initialize_db development.ini
 ```
 
-Data awal yang dimasukkan: 3 mahasiswa dan 4 matakuliah
-(IF2110, IF3140, IF2230, IF4020).
-
-## Menjalankan server
+4. Jalankan server:
 
 ```bash
-pserve --reload development.ini
+pserve development.ini --reload
 ```
 
-Server berjalan di `http://localhost:6543`.
+Server jalan di `http://localhost:6543`.
 
-## Endpoint API
+Untuk PostgreSQL, jalankan `set PYRAMID_CONFIG=production.ini` sebelum
+migrasi, lalu pakai `production.ini` pada perintah `initialize_db` dan
+`pserve`.
 
-| Method | URL | Keterangan |
-|---|---|---|
-| GET | `/api/mahasiswa` | Daftar seluruh mahasiswa |
-| GET | `/api/mahasiswa/{id}` | Detail mahasiswa (404 jika tidak ada) |
-| POST | `/api/mahasiswa` | Tambah mahasiswa (400 jika tidak valid) |
-| PUT | `/api/mahasiswa/{id}` | Perbarui mahasiswa |
-| DELETE | `/api/mahasiswa/{id}` | Hapus mahasiswa |
-| GET | `/api/matakuliah` | Daftar seluruh matakuliah |
-| GET | `/api/matakuliah/{id}` | Detail matakuliah (404 jika tidak ada) |
-| POST | `/api/matakuliah` | Tambah matakuliah (400 jika tidak valid) |
-| PUT | `/api/matakuliah/{id}` | Perbarui matakuliah |
-| DELETE | `/api/matakuliah/{id}` | Hapus matakuliah |
+## Pengujian
 
-Field wajib matakuliah: `kode_mk`, `nama_mk`, `sks`, `semester`.
-Nilai `sks` dan `semester` harus bilangan bulat lebih dari 0.
-
-## Contoh pengujian dengan cURL
+Pengujian memakai cURL di terminal kedua selagi server berjalan. Di
+PowerShell gunakan `curl.exe` (bukan `curl`) agar hasilnya sesuai.
 
 ```bash
-curl http://localhost:6543/api/matakuliah
+curl.exe -i http://localhost:6543/api/matakuliah
+curl.exe -i http://localhost:6543/api/matakuliah/1
+curl.exe -i -X POST http://localhost:6543/api/matakuliah -H "Content-Type: application/json" -d "{\"kode_mk\":\"IF5150\",\"nama_mk\":\"Keamanan Informasi\",\"sks\":3,\"semester\":5}"
+curl.exe -i -X PUT http://localhost:6543/api/matakuliah/5 -H "Content-Type: application/json" -d "{\"sks\":4}"
+curl.exe -i -X DELETE http://localhost:6543/api/matakuliah/5
 ```
 
-```bash
-curl -X POST http://localhost:6543/api/matakuliah \
-  -H "Content-Type: application/json" \
-  -d "{\"kode_mk\":\"IF5150\",\"nama_mk\":\"Keamanan Informasi\",\"sks\":3,\"semester\":5}"
-```
+Endpoint mahasiswa diuji dengan cara yang sama lewat `/api/mahasiswa`.
+Respons `400` bisa dicoba dengan mengosongkan salah satu field wajib atau
+mengirim `sks` bernilai 0.
 
-```bash
-curl -X PUT http://localhost:6543/api/matakuliah/5 \
-  -H "Content-Type: application/json" -d "{\"sks\":4}"
-```
-
-```bash
-curl -X DELETE http://localhost:6543/api/matakuliah/5
-```
-
-## Screenshot hasil pengujian
+## Screenshot
 
 ### Migrasi Alembic dan seeding data awal
 
 ![Migrasi dan seeding](screenshots/01_migrasi_dan_seeding.png)
 
-### GET /api/matakuliah dan GET /api/matakuliah/{id}
+### Matakuliah — GET semua & GET detail
 
-Daftar seluruh matakuliah, detail id 2, dan respons 404 untuk id yang
-tidak ada.
+Daftar seluruh mata kuliah, detail berdasarkan id, dan respons `404` saat
+id tidak ditemukan.
 
-![Pengujian GET matakuliah](screenshots/02_api_matakuliah_get.png)
+![Matakuliah GET](screenshots/02_api_matakuliah_get.png)
 
-### POST, PUT, DELETE /api/matakuliah
+### Matakuliah — POST, validasi (400), PUT & DELETE
 
-Penambahan data valid, validasi field wajib, validasi `sks` nol,
-kode duplikat, pembaruan, dan penghapusan.
+Penambahan data valid, tiga contoh data tidak valid, pembaruan, dan
+penghapusan data.
 
-![Pengujian CRUD matakuliah](screenshots/03_api_matakuliah_crud.png)
+![Matakuliah POST PUT DELETE](screenshots/03_api_matakuliah_crud.png)
 
-### CRUD /api/mahasiswa
+### Mahasiswa — GET, POST, PUT & DELETE
 
-Pengujian seluruh endpoint mahasiswa (GET, POST, PUT, DELETE).
+Pengujian seluruh endpoint mahasiswa, mulai dari daftar, detail,
+penambahan, pembaruan, sampai penghapusan.
 
-![Pengujian CRUD mahasiswa](screenshots/04_api_mahasiswa_crud.png)
+![Mahasiswa CRUD](screenshots/04_api_mahasiswa_crud.png)
 
-## Catatan PostgreSQL
+## Materi Pyramid yang dipakai
 
-Untuk memakai PostgreSQL:
-
-1. Buat database, misalnya `CREATE DATABASE pyramid_mahasiswa;`
-2. Sesuaikan `sqlalchemy.url` pada `production.ini`.
-3. Jalankan migrasi dengan konfigurasi produksi, lalu server:
-
-```bash
-set PYRAMID_CONFIG=production.ini
-alembic upgrade head
-pserve production.ini
-```
-
-Pada Linux/macOS gunakan
-`PYRAMID_CONFIG=production.ini alembic upgrade head`.
-
-Direktori `venv/`, berkas `*.sqlite`, dan `__pycache__/` sudah dikecualikan
-melalui `.gitignore` sehingga tidak ikut diunggah ke GitHub.
+| Materi | File |
+|---|---|
+| Model ORM + `to_dict()` | `models/mahasiswa.py`, `models/matakuliah.py` |
+| Registrasi model | `models/__init__.py` |
+| Migrasi Alembic | `alembic/versions/20261112_create_mahasiswa_table.py`, `20261112_create_matakuliah_table.py` |
+| Seeding data awal | `scripts/initialize_db.py` (3 mahasiswa, 4 mata kuliah) |
+| View CRUD | `views/mahasiswa.py`, `views/matakuliah.py` |
+| URL Dispatch + `request_method` | `routes.py` |
+| Koneksi database | `development.ini`, `production.ini` |
