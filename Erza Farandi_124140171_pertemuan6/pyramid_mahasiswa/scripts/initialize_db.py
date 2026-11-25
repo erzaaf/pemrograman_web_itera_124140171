@@ -1,17 +1,22 @@
 """Isi data awal (seeding) untuk database aplikasi.
 
-Jalankan setelah migrasi Alembic:
-
-    alembic upgrade head
-    initialize_db development.ini
-
-atau tanpa entry point:
+Skrip ini juga menerapkan seluruh migrasi Alembic lebih dulu, jadi cukup
+satu perintah:
 
     python -m pyramid_mahasiswa.scripts.initialize_db development.ini
+
+atau lewat entry point setelah ``pip install -e .``:
+
+    initialize_db development.ini
 """
 
+import logging
+import os
 import sys
+from pathlib import Path
 
+from alembic import command
+from alembic.config import Config as AlembicConfig
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config, pool
 from sqlalchemy.orm import sessionmaker
@@ -40,8 +45,33 @@ DATA_MATAKULIAH = [
 ]
 
 
+def jalankan_migrasi(config_uri):
+    """Terapkan seluruh migrasi Alembic ke database.
+
+    Lokasi folder migrasi ditentukan langsung dari kode, sehingga tidak
+    memerlukan berkas alembic.ini maupun pyproject.toml.
+
+    Args:
+        config_uri (str): berkas .ini yang dipakai (mis. development.ini).
+    """
+    folder_alembic = Path(__file__).resolve().parents[1] / "alembic"
+    os.environ["PYRAMID_CONFIG"] = config_uri
+
+    alembic_cfg = AlembicConfig()
+    alembic_cfg.set_main_option("script_location", str(folder_alembic))
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)-5.5s [%(name)s] %(message)s",
+    )
+
+    print("Menerapkan migrasi Alembic...", flush=True)
+    command.upgrade(alembic_cfg, "head")
+    print()
+
+
 def main(argv=sys.argv):
-    """Baca konfigurasi, lalu isi database dengan data awal.
+    """Baca konfigurasi, terapkan migrasi, lalu isi data awal.
 
     Args:
         argv (list): argumen baris perintah; elemen kedua adalah berkas
@@ -58,11 +88,13 @@ def main(argv=sys.argv):
     setup_logging(config_uri)
     settings = get_appsettings(config_uri)
 
+    jalankan_migrasi(config_uri)
+
     engine = engine_from_config(
         settings, "sqlalchemy.", poolclass=pool.NullPool)
     session = sessionmaker(bind=engine)()
 
-    print("Mengisi data awal ke database...")
+    print("Mengisi data awal ke database...", flush=True)
 
     jumlah_baru = 0
 
