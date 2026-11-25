@@ -62,6 +62,10 @@ alembic upgrade head
 python -m pyramid_mahasiswa.scripts.initialize_db development.ini
 ```
 
+Konfigurasi Alembic ada di `pyproject.toml` bagian `[tool.alembic]`, jadi
+perintah `alembic` langsung jalan tanpa berkas `alembic.ini` terpisah.
+URL database tetap diambil dari `development.ini` oleh `alembic/env.py`.
+
 4. Jalankan server:
 
 ```bash
