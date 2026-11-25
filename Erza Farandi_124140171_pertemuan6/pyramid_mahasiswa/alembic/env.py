@@ -1,5 +1,6 @@
 """Konfigurasi environment Alembic untuk aplikasi Pyramid."""
 
+import logging
 import os
 from logging.config import fileConfig
 
@@ -12,8 +13,16 @@ from pyramid_mahasiswa.models.meta import Base
 
 config = context.config
 
-if config.config_file_name is not None:
+# Konfigurasi diambil dari pyproject.toml ([tool.alembic]). Bila ada
+# berkas alembic.ini terpisah, logging-nya ikut dibaca dari sana.
+if (config.config_file_name is not None
+        and os.path.exists(config.config_file_name)):
     fileConfig(config.config_file_name)
+else:
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)-5.5s [%(name)s] %(message)s",
+    )
 
 # Ambil URL database dari berkas .ini agar tidak duplikasi konfigurasi.
 # Default development.ini, bisa diganti lewat variabel PYRAMID_CONFIG.

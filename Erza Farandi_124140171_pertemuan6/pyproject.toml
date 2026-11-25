@@ -1,0 +1,8 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.alembic]
+script_location = "pyramid_mahasiswa/alembic"
+prepend_sys_path = "."
+version_path_separator = "os"
