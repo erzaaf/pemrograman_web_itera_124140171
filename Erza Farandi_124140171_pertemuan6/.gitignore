@@ -1,0 +1,20 @@
+# lingkungan virtual
+venv/
+.venv/
+env/
+
+# database SQLite lokal
+*.sqlite
+*.sqlite3
+*.db
+
+# cache Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# file editor dan OS
+.vscode/
+.idea/
+.DS_Store
