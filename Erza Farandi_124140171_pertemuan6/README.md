@@ -55,12 +55,15 @@ venv\Scripts\activate
 pip install -e .
 ```
 
-3. Jalankan migrasi dan isi data awal:
+3. Terapkan migrasi sekaligus isi data awal (satu perintah):
 
 ```bash
-alembic upgrade head
 python -m pyramid_mahasiswa.scripts.initialize_db development.ini
 ```
+
+Perintah ini menjalankan `alembic upgrade head` dari dalam script, lalu
+mengisi 3 mahasiswa dan 4 mata kuliah. Aman diulang karena data yang sudah
+ada akan dilewati.
 
 4. Jalankan server:
 
@@ -70,9 +73,12 @@ pserve development.ini --reload
 
 Server jalan di `http://localhost:6543`.
 
-Untuk PostgreSQL, jalankan `set PYRAMID_CONFIG=production.ini` sebelum
-migrasi, lalu pakai `production.ini` pada perintah `initialize_db` dan
-`pserve`.
+Untuk PostgreSQL, cukup ganti nama berkasnya:
+
+```bash
+python -m pyramid_mahasiswa.scripts.initialize_db production.ini
+pserve production.ini
+```
 
 ## Pengujian
 
